@@ -17,7 +17,8 @@ fi
 PROBLEM_ID="$1"
 OUTPUT_DIR="$2"
 MODEL="${3:-gpt-4o-mini}"  # Default to gpt-4o-mini
-DATASET="dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl"
+# DATASET="dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl"
+DATASET="dataset/temp_dataset2.jsonl"
 
 echo "=========================================="
 echo "Running Benchmark"
