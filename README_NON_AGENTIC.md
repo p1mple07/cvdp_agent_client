@@ -11,7 +11,7 @@ The non-agentic workflow evaluates language models using direct API calls on har
 4. 📊 Generates detailed evaluation reports
 
 **Key advantages:**
-- Simple setup (no Docker agent required)
+- Simple setup (no Docker agent required)           
 - Direct model evaluation
 - Support for any model with API access
 - Streamlined for traditional LLM testing

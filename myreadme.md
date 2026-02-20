@@ -38,6 +38,8 @@ cvdp_copilot_wb2ahb_0001
 cvdp_copilot_word_change_detector_0001
 
 
+./run_all_problems.py 2>&1 | tee gpt_4o_mini_agentic_logs.txt
+
 
 rename temp_dataset to temp_dataset1.jsonl
 run_and_extract_errors.sh -> change dataset to temp_dataset1.jsonl

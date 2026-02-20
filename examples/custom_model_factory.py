@@ -36,6 +36,9 @@ from src.llm_lib.openai_llm import OpenAI_Instance
 # Import the subjective scoring model implementation
 from sbj_score_model import SubjectiveScoreModel_Instance
 
+# Import the localhost model implementation
+from localhost_instance import Localhost_Instance
+
 class CustomModelFactory(ModelFactory):
     """
     Custom model factory that extends the base ModelFactory to add support for additional models.
@@ -62,6 +65,28 @@ class CustomModelFactory(ModelFactory):
         
         logging.info("Custom model factory initialized with additional model support")
 
+    def create_model(self, model_name: str, context: Any = None, key: Optional[str] = None, **kwargs) -> Any:
+        """
+        Create a model instance based on the model name.
+        Falls back to localhost server for unrecognized models.
+        
+        Args:
+            model_name: Name of the model to create
+            context: Context to pass to the model constructor
+            key: API key to use (if applicable)
+            **kwargs: Additional arguments to pass to the model constructor
+            
+        Returns:
+            An instance of the appropriate model class
+        """
+        try:
+            # Try the parent class first (handles OpenAI and registered models)
+            return super().create_model(model_name, context, key, **kwargs)
+        except ValueError:
+            # If model not recognized, use localhost instance
+            logging.info(f"Model '{model_name}' not recognized, using localhost server")
+            return self._create_localhost_instance(model_name, context, key, **kwargs)
+
     # Implementation for Claude models
     # NOTE: In a real implementation, you would uncomment this method
     # def _create_claude_instance(self, model_name: str, context: Any, key: Optional[str], **kwargs) -> Any:
@@ -72,6 +97,11 @@ class CustomModelFactory(ModelFactory):
     def _create_sbj_score_instance(self, model_name: str, context: Any, key: Optional[str], **kwargs) -> Any:
         """Create a subjective scoring model instance"""
         return SubjectiveScoreModel_Instance(context=context, key=key, model=model_name)
+
+    # Implementation for localhost model
+    def _create_localhost_instance(self, model_name: str, context: Any, key: Optional[str], **kwargs) -> Any:
+        """Create a localhost model instance"""
+        return Localhost_Instance(context=context, key=key, model=model_name)
 
 
 # Example of how to use the custom factory directly (for testing)

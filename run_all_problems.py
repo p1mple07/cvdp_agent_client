@@ -138,7 +138,7 @@ def main():
                         default='dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl',
                         help='Dataset file to process (default: cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl)')
     parser.add_argument('-m', '--model', 
-                        default='gpt-4o',
+                        default='gpt-4o-mini',
                         help='Model to use (default: gpt-4o)')
     parser.add_argument('-o', '--output', 
                         default='dataset/temp_dataset.jsonl',

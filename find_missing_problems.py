@@ -25,22 +25,24 @@ def get_processed_problem_ids(results_dir):
         print(f"Directory {results_dir} does not exist!")
         return processed_ids
     
-    for folder in os.listdir(results_dir):
-        folder_path = os.path.join(results_dir, folder)
-        if os.path.isdir(folder_path):
-            # Extract problem ID from folder name
-            # Folder format: work_auto_cvdp_copilot_<problem_id>
-            if folder.startswith('work_auto_cvdp_copilot_'):
-                problem_id = folder.replace('work_auto_cvdp_copilot_', '')
-                # Reconstruct the ID with the prefix
-                problem_id = f'cvdp_copilot_{problem_id}'
-                processed_ids.append(problem_id)
+    # Recursively search for problem folders (handles nested run_* directories)
+    for root, dirs, files in os.walk(results_dir):
+        for folder in dirs:
+            # Look for folders that contain cvdp_copilot pattern
+            if 'cvdp_copilot_' in folder:
+                # Extract the problem ID part
+                parts = folder.split('cvdp_copilot_')
+                if len(parts) >= 2:
+                    problem_id_suffix = parts[-1]
+                    problem_id = f'cvdp_copilot_{problem_id_suffix}'
+                    if problem_id not in processed_ids:
+                        processed_ids.append(problem_id)
     
     return processed_ids
 
 def main():
     dataset_file = 'dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl'
-    results_dir = 'final_llm_nonagentic'
+    results_dir = 'gpt_4o_mini_agent_nonagentic'
     
     print("Reading dataset...")
     dataset_ids = get_dataset_problem_ids(dataset_file)
