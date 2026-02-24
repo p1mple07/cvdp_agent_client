@@ -45,6 +45,8 @@ rename temp_dataset to temp_dataset1.jsonl
 run_and_extract_errors.sh -> change dataset to temp_dataset1.jsonl
 (cvdp_env) shashwat@Shashwat:~/btp/from_scratch/cvdp_benchmark$ ./run_all_problems.py -d dataset/temp_dataset1.jsonl 
 
+./run_all_problems.py -m deepseek -d dataset/temp_dataset1.jsonl --keep-failed 2>&1 | tee tmux_after_docker2.txt
+
 rename temp_dataset to temp_dataset2.jsonl
 run_and_extract_errors.sh -> change dataset to temp_dataset2.jsonl
 (cvdp_env) shashwat@Shashwat:~/btp/from_scratch/cvdp_benchmark$ ./run_all_problems.py -d dataset/temp_dataset2.jsonl --keep-failed
