@@ -243,7 +243,8 @@ def main():
                 './run_and_extract_errors.sh',
                 problem_id,
                 work_dir,
-                args.model
+                args.model,
+                args.dataset
             ]
             
             success = run_command(

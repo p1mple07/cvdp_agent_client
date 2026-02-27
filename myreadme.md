@@ -63,3 +63,11 @@ To Do:
     automate all the above steps
     save all the run logs
     investigate why some (6 problems) problems are not saved
+
+
+
+./run_all_problems.py -m {model} -d dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl -o dataset/temp1.jsonl --keep-failed 2>&1 | tee {model}_run1_log.txt
+
+./run_all_problems.py -m {model} -d dataset/temp1.jsonl -o dataset/temp2.jsonl --keep-failed 2>&1 | tee {model}_run1_log.txt
+
+./run_all_problems.py -m {model} -d dataset/temp2.jsonl -o dataset/temp3.jsonl --keep-failed 2>&1 | tee {model}_run1_log.txt

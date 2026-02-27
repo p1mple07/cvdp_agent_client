@@ -6,19 +6,19 @@ set -e  # Exit on error
 
 # Check arguments
 if [ $# -lt 2 ]; then
-    echo "Usage: $0 <problem_id> <output_dir> [model]"
+    echo "Usage: $0 <problem_id> <output_dir> [model] [dataset]"
     echo ""
     echo "Examples:"
     echo "  $0 cvdp_copilot_16qam_mapper_0001 work_test"
     echo "  $0 cvdp_copilot_16qam_mapper_0001 work_test gpt-4o-mini"
+    echo "  $0 cvdp_copilot_16qam_mapper_0001 work_test gpt-4o-mini dataset/my_dataset.jsonl"
     exit 1
 fi
 
 PROBLEM_ID="$1"
 OUTPUT_DIR="$2"
 MODEL="${3:-gpt-4o-mini}"  # Default to gpt-4o-mini
-# DATASET="dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl"
-DATASET="dataset/temp_dataset2.jsonl"
+DATASET="${4:-dataset/cvdp_v1.0.2_nonagentic_code_generation_no_commercial.jsonl}"  # Default dataset
 
 echo "=========================================="
 echo "Running Benchmark"
